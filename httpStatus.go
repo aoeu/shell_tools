@@ -2,16 +2,10 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"log"
+	"os"
 	"strconv"
 )
-
-func check(err error) {
-	if err != nil {
-		fmt.Errorf(err.Error())
-	}		
-}
 
 // http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 func main() {
@@ -62,7 +56,9 @@ func main() {
 		log.Fatal("Must supply a status code.")
 	}
 	code, err := strconv.Atoi(os.Args[1])
-	check(err)	
+	if err != nil {
+		log.Fatal(err)
+	}
 	title, ok := statusTitles[code]
 	if !ok {
 		log.Fatal("No such HTTP Status code.")
